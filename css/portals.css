@@ -1,0 +1,66 @@
+/* Portal Box Styling */
+.portal-box {
+    border: 1px solid #eee;
+    transition: 0.3s;
+    position: relative;
+}
+
+.portal-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.extra-links {
+    display: none;
+    margin-top: 15px;
+}
+
+.portal-box.expanded .extra-links {
+    display: block;
+}
+
+/* Button Styling */
+.btn-shape {
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+    color: #f3f4e7;
+    background-color: #314528;
+}
+
+.btn-shape:hover {
+    opacity: 0.9;
+}
+
+/* Grid Layout */
+.portals-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.portal-box {
+    border: 1px solid #eee;
+    transition: 0.3s;
+    position: relative;
+}
+
+.portal-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.extra-links {
+    display: none;
+    margin-top: 15px;
+}
+
+.portal-box.expanded .extra-links {
+    display: block;
+}
+.d-block{
+    display: block;
+    color: #314528;
+    text-decoration: underline;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}

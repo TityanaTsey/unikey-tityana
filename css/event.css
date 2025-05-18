@@ -1,0 +1,150 @@
+.courses-page {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+@media (max-width: 767px) {
+    .courses-page {
+        grid-template-columns: minmax(200px, 1fr);
+        margin-left: 10px;
+        margin-right: 10px;
+        gap: 10px;
+    }
+}
+
+.courses-page .course {
+    overflow: hidden;
+}
+
+.courses-page .course .cover {
+    max-width: 100%;
+    height: 275px;
+}
+
+.courses-page .course .instructor {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    top: 20px;
+    left: 20px;
+    border: 2px solid white;
+}
+
+.courses-page .course .description {
+    line-height: 1.6;
+}
+
+.courses-page .course .info {
+    border-top: 1px solid #eee;
+    font-size: 13px;
+}
+
+.courses-page .course .info .title {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    background-color: #314528;
+    color: #f3f4e7;
+    cursor: pointer;
+}
+.courses-page .course .info .title:hover{
+    color: #314528;
+    background-color: #D9D8D5;
+}
+/* Filter Section */
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-section label {
+    margin-right: 10px;
+}
+
+.filter-section select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.reminder-btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.reminder-btn:hover {
+    background-color: #768d6c;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: red;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.close-btn:hover {
+    color: darkred;
+}
+.bell{
+    display: flex;
+    justify-content: flex-end;
+}
+.reminder-icon {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    font-size: 24px;
+    color: #314528;
+}
+/* .reminder-icon:hover {
+    color: #768d6c;
+} */
+
+/* .reminder-icon::before {
+    content: "Set Up Reminder";
+    position: absolute;
+    bottom: 9%;
+    left: 77%;
+    transform: translateX(-50%);
+    background-color: #314528;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+} 
+.reminder-icon:hover::before {
+    opacity: 1;
+    visibility: visible;
+} */
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.tag {
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    font-size: 12px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tag:hover {
+    background-color: #314528;
+    color: #fff;
+}
