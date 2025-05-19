@@ -1,0 +1,467 @@
+/* ===== Base Styles ===== */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* ===== Map Container ===== */
+#map {
+    height: 70vh;
+    width: 95%;
+    margin: 15px auto;
+    border: 2px solid #006633;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 102, 51, 0.1);
+    z-index: 1;
+}
+
+/* ===== Filter Controls ===== */
+.map-filters {
+    margin: 10px auto;
+    width: 95%;
+    padding: 12px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    transition: all 0.3s;
+    margin: 2px;
+    font-weight: 500;
+}
+
+.filter-btn i {
+    font-size: 16px;
+}
+
+.filter-btn.active {
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn:not(.active):hover {
+    background: #f8f8f8;
+}
+
+/* Filter button colors */
+.filter-btn[data-type="library"].active {
+    background: #ef4444;
+}
+
+.filter-btn[data-type="faculty"].active {
+    background: #3b82f6;
+}
+
+.filter-btn[data-type="mosque"].active {
+    background: #10b981;
+}
+
+.filter-btn[data-type="restroom"].active {
+    background: #a855f7;
+}
+
+.filter-btn[data-type="cafeteria"].active {
+    background: #f59e0b;
+}
+
+.filter-btn[data-type="admin"].active {
+    background: #14b8a6;
+}
+
+.filter-btn[data-type="health"].active {
+    background: #dc2626;
+}
+
+/* ===== Map Markers ===== */
+.custom-icon {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50% !important;
+    font-size: 14px !important;
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Marker background colors */
+.library-icon {
+    background-color: #ef4444 !important;
+}
+
+.faculty-icon {
+    background-color: #3b82f6 !important;
+}
+
+.mosque-icon {
+    background-color: #10b981 !important;
+}
+
+.restroom-icon {
+    background-color: #a855f7 !important;
+}
+
+.cafeteria-icon {
+    background-color: #f59e0b !important;
+}
+
+.admin-icon {
+    background-color: #14b8a6 !important;
+}
+
+.health-icon {
+    background-color: #dc2626 !important;
+}
+
+.user-location-icon {
+    background-color: #006633 !important;
+}
+
+/* ===== Popups ===== */
+.leaflet-popup-content-wrapper {
+    border-radius: 10px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.popup-content {
+    padding: 12px;
+}
+
+.popup-content h4 {
+    margin: 0 0 5px 0;
+    color: #006633;
+    font-size: 16px;
+}
+
+.popup-type {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    color: #666;
+    text-transform: capitalize;
+}
+
+.popup-actions {
+    margin-top: 10px;
+}
+
+.get-directions {
+    background: #006633;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.get-directions:hover {
+    background: #005826;
+    transform: translateY(-1px);
+}
+
+.get-directions i {
+    font-size: 14px;
+}
+
+/* ===== Routing Panel ===== */
+.leaflet-routing-container {
+    background: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    width: 320px !important;
+    font-family: 'Poppins', sans-serif !important;
+    border: none !important;
+}
+
+.leaflet-routing-alt {
+    max-height: 350px !important;
+    overflow-y: auto !important;
+    padding: 12px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.leaflet-routing-alt h3 {
+    color: #006633 !important;
+    font-size: 16px !important;
+    margin: 0 0 12px 0 !important;
+    padding-bottom: 8px !important;
+    border-bottom: 2px solid #f0f0f0 !important;
+    font-weight: 600;
+}
+
+.leaflet-routing-alt table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+.leaflet-routing-alt tr {
+    transition: all 0.2s;
+}
+
+.leaflet-routing-alt tr:hover {
+    background-color: #f9f9f9 !important;
+    cursor: pointer !important;
+}
+
+.leaflet-routing-alt tr.active {
+    background-color: #f0f7f0 !important;
+    border-left: 3px solid #006633 !important;
+}
+
+.leaflet-routing-alt td {
+    padding: 10px 8px !important;
+    font-size: 14px !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid #f5f5f5 !important;
+}
+
+.leaflet-routing-alt td:first-child {
+    width: 36px !important;
+    text-align: center !important;
+    color: #006633;
+    font-weight: bold;
+}
+
+.leaflet-routing-alt td:nth-child(2) {
+    font-weight: 500 !important;
+    color: #333;
+}
+
+/* Distance/duration styling */
+.leaflet-routing-alt .leaflet-routing-alt-distance {
+    color: #666 !important;
+    font-size: 13px !important;
+    text-align: right !important;
+}
+
+.leaflet-routing-alt .leaflet-routing-alt-duration {
+    color: #006633 !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+}
+
+/* Close button */
+.leaflet-routing-close {
+    color: #006633 !important;
+    font-size: 18px !important;
+    padding: 8px 12px !important;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.leaflet-routing-close:hover {
+    opacity: 1;
+}
+
+/* ===== Location Error ===== */
+#location-error {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 1001;
+    background: #ffebee;
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    display: none;
+    animation: fadeIn 0.3s ease;
+    font-size: 14px;
+    border-left: 4px solid #dc2626;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+    #map {
+        height: 65vh;
+        width: 92%;
+    }
+
+    .leaflet-routing-container {
+        width: 280px !important;
+        font-size: 13px !important;
+    }
+
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+
+    .leaflet-routing-alt td {
+        padding: 8px 6px !important;
+        font-size: 13px !important;
+    }
+}
+/* Add to styles.css */
+.route-progress {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    font-size: 14px;
+    display: none;
+}
+.popup-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.popup-actions button {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.get-directions {
+    background-color: #005826;
+    color: white;
+}
+
+.save-location {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.popup-actions button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.popup-actions button i {
+    font-size: 14px;
+}
+/* Add to filter button colors section */
+.filter-btn[data-type="inventories"].active {
+    background: #4408ca;
+    /* Purple color */
+}
+
+/* Add to marker icon colors section */
+.inventories-icon {
+    background-color: #4408ca !important;
+}
+@media (max-width: 768px) {
+
+    /* Smaller popups on mobile */
+    .leaflet-popup-content-wrapper {
+        width: 250px !important;
+    }
+
+    .popup-content {
+        padding: 8px;
+    }
+
+    .popup-content h4 {
+        font-size: 14px;
+    }
+
+    .popup-actions {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .popup-actions button {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+}
+@media (max-width: 768px) {
+    /* ... existing mobile styles ... */
+
+    /* Better directions panel */
+    .leaflet-routing-container {
+        width: 90% !important;
+        max-width: 280px !important;
+        bottom: 10px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: auto !important;
+        right: auto !important;
+    }
+
+    .leaflet-routing-alt {
+        max-height: 200px !important;
+        padding: 8px !important;
+    }
+
+    .leaflet-routing-alt h3 {
+        font-size: 14px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .leaflet-routing-alt td {
+        padding: 6px 4px !important;
+        font-size: 12px !important;
+    }
+
+    /* Make the close button more accessible */
+    .leaflet-routing-close {
+        padding: 6px 10px !important;
+        font-size: 16px !important;
+    }
+
+    /* Adjust route progress indicator */
+    .route-progress {
+        bottom: 60px;
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
