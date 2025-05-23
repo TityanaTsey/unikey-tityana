@@ -158,26 +158,82 @@
                 </h2>
 
                 <div class="items-grid">
+
+
+
+
+
+
+                <?php
+                    $sql1 = mysqli_query($con, "SELECT * FROM maps WHERE student_id = '$S_ID'");
+
+                    while ($row1 = mysqli_fetch_array($sql1)) {
+
+                        $loc_id    = $row1['id'];
+                        $longitude = $row1['longitude'];
+                        $latitude  = $row1['latitude'];
+                        $loc_name  = $row1['name'];
+                        $loc_type  = $row1['type'];
+
+                    ?>
+
+
+
+
+
+
                     <div class="item-card">
+                       
                         <div class="item-actions">
-                            <button class="action-btn" title="Edit">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="action-btn delete-event-btn " title="Delete" >
-                                <i class="fa-solid fa-trash-can "></i>
+
+                            <button class="action-btn " title="Delete" >
+                                <i class="fa-solid fa-trash-can" id="bt-<?php echo $loc_id ?>" onclick="onLocClick(<?php echo $loc_id ?>)"></i>
                             </button>
                         </div>
                         <h3>Saved Location</h3>
-                        <p>Faculty Cafeteria</p>
+                        <p><?php echo $loc_type ?></p>
                         <div class="map-preview">
-                            <img src="imgs/cafeteria.jpeg" alt="Cafeteria Preview">
-                            <div class="map-label">IT Building Cafeteria</div>
+                            <!-- <img src="imgs/cafeteria.jpeg" alt="Cafeteria Preview"> -->
+                            <div class="map-label"><?php echo $loc_name ?></div>
                         </div>
                         <div class="item-meta">
                             <span><i class="fa-solid fa-bookmark"></i> Saved location</span>
                         </div>
                     </div>
+
+
+                    <?php
+                    }?>
+
+
+
+
                 </div>
+
+
+
+                        <script>
+                            const onLocClick = (e) => {
+
+                                const id = e;
+                                
+                                fetch(`./DeleteLocation.php?loc_id=${id}`)
+                                .then(res => res.json())
+                                .then(res => {
+
+                                    if(!res.error){
+                                        alert('Location Deleted')
+                                        location.reload();
+                                    } else {
+                                        alert('Something Went wrong')
+                                    }
+                                });
+                            }
+                        </script>
+
+
+
+
 
                 <div class="view-all">
                     <a href="map.php">View Full Map →</a>
@@ -421,14 +477,14 @@
                     ?>
 
                     <div class="item-card">
-
+ 
                     <?php
-                        $announcementsCreatedDate = new DateTime($marketplace_created_at);
+                        $announcementsCreatedDate = new DateTime($announcement_created_at);
                             $announcementplaceNow     = new DateTime();
                             $announcementsplaceDiff   = $announcementsCreatedDate->diff($announcementplaceNow);
 
                             if ($announcementsplaceDiff->d > 0) {
-                                $announcementsplaceTimeAgo = $announcementsplaceDiff->d . ' days ago';
+                                $announcementsplaceTimeAgo = $announcementsplaceDiff->d . ' months ago';
                             } elseif ($announcementsplaceDiff->h > 0) {
                                 $announcementsplaceTimeAgo = $announcementsplaceDiff->h . ' hours ago';
                             } elseif ($announcementsplaceDiff->i > 0) {
@@ -440,11 +496,13 @@
 
 
                         <h3><?php echo $announcement_name ?></h3>
-                        <p><?php echo $announcement_description ?></p>
+                         <h3><?php echo $announcement_description ?></h3>
+                       
                         <div class="item-meta">
                             <span><i class="fa-solid fa-clock"></i>                                                                                                                                                                                                          <?php echo $announcementsplaceTimeAgo ?></span>
                             <span><?php echo $category_name ?></span>
                         </div>
+                        
                     </div>
                     <?php }?>
                 </div>

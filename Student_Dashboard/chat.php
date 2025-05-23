@@ -147,7 +147,7 @@ sendForm.addEventListener('submit', async e => {
 (async function poll() {
   while (true) {
     if (!currentRoom) {
-      await sleep(500);
+      await sleep(3000);
       continue;
     }
     try {
@@ -164,6 +164,7 @@ sendForm.addEventListener('submit', async e => {
       console.error(e);
       await sleep(2000);
     }
+     await sleep(2000);  // 1 second delay between polls
   }
 })();
 

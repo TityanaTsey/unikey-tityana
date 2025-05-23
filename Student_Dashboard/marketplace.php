@@ -5,7 +5,7 @@
 
     $S_ID = $_SESSION['S_Log'];
 
-    $category_id_selected   = $_GET['category_id'];
+    $major_id_selected   = $_GET['major_id'];
     $department_id_selected = $_GET['department_id'];
 
     $marketplacesSql = #"SELECT * FROM marketplaces ORDER BY id DESC";
@@ -17,16 +17,16 @@ WHERE m.status != 'Expired'
 ORDER BY m.id DESC;";
   
 
-    if ($category_id_selected && $department_id_selected) {
+    if ($major_id_selected && $department_id_selected) {
 
-        $marketplacesSql = #"SELECT * from marketplaces WHERE category_id = '$category_id_selected' AND department_id = '$department_id_selected' ORDER BY id DESC";
-        "SELECT * from marketplaces WHERE category_id = '$category_id_selected'   AND department_id = '$department_id_selected'AND status != 'Expired'ORDER BY id DESC";
+        $marketplacesSql = #"SELECT * from marketplaces WHERE major_id = '$major_id_selected' AND department_id = '$department_id_selected' ORDER BY id DESC";
+        "SELECT * from marketplaces WHERE major = '$major_id_selected'   AND department_id = '$department_id_selected'AND status != 'Expired'ORDER BY id DESC";
        
 
-    } else if ($category_id_selected) {
+    } else if ($major_id_selected) {
 
-        $marketplacesSql = #"SELECT * from marketplaces WHERE category_id = '$category_id_selected' ORDER BY id DESC";
-        "SELECT * from marketplaces WHERE category_id = '$category_id_selected'   AND status != 'Expired'   ORDER BY id DESC";
+        $marketplacesSql = #"SELECT * from marketplaces WHERE major_id = '$major_id_selected' ORDER BY id DESC";
+        "SELECT * from marketplaces WHERE major = '$major_id_selected'   AND status != 'Expired'   ORDER BY id DESC";
        
 
     } else if ($department_id_selected) {
@@ -54,7 +54,7 @@ ORDER BY m.id DESC;";
         if (isset($_POST['Submit'])) {
 
             $department_id = $_POST['department_id'];
-            $category_id   = $_POST['category_id'];
+            $major_id   = $_POST['major_id'];
             $student_id    = $_SESSION['S_Log'];
             $name          = $_POST['name'];
             $description   = $_POST['description'];
@@ -62,9 +62,9 @@ ORDER BY m.id DESC;";
             $image         = $_FILES["file"]["name"];
             $image         = 'MarketPlaces_Images/' . $image;
 
-            $stmt = $con->prepare("INSERT INTO marketplaces (category_id, student_id, department_id, name, description, image) VALUES (?, ?, ?, ?, ?, ?) ");
+            $stmt = $con->prepare("INSERT INTO marketplaces (major, student_id, department_id, name, description, image) VALUES (?, ?, ?, ?, ?, ?) ");
 
-            $stmt->bind_param("iiisss", $category_id, $student_id, $department_id, $name, $description, $image);
+            $stmt->bind_param("iiisss", $major_id, $student_id, $department_id, $name, $description, $image);
 
             if ($stmt->execute()) {
 
@@ -145,7 +145,7 @@ ORDER BY m.id DESC;";
             <h1 class="p-relative">BookTrade</h1>
             <!-- Filter Section -->
             <div class="filter-section ">
-                <select name="department_id" id="filter-type" >
+                <select name="department_id" id="dep_filter_type" >
                     <option value=""  >Filter by Faculty</option>
                     <?php
                         $sql1 = mysqli_query($con, "SELECT * from departments");
@@ -162,52 +162,71 @@ ORDER BY m.id DESC;";
 }?>
                 </select>
 
-                <select name="category_id" id="category_id">
-                    <option value=""  >Filter by Category</option>
-                    <?php
-                        $sql1 = mysqli_query($con, "SELECT * from categories WHERE type = 'losts'");
-
-                        while ($row1 = mysqli_fetch_array($sql1)) {
-
-                            $category_id_filter   = $row1['id'];
-                            $category_name_filter = $row1['name'];
-
-                        ?>
-
-<option value="<?php echo $category_id_filter ?>"<?php echo $category_id_filter == $category_id_selected ? 'selected' : '' ?>><?php echo $category_name_filter ?></option>
-<?php
-}?>
+                <select name="filter_major_id" id="filter_major_id">
+                    <option value=""  >Filter by Major</option>
+                   
                 </select>
 
+<script>
+   
 
+document.addEventListener('DOMContentLoaded', function() {
+                        let val = document.getElementById('dep_filter_type').value;
+                       
+                        let selected_major =  <?php echo json_encode($major_id_selected ?? null); ?>;
+                        let selected_department =  <?php echo json_encode($ $department_id_selected ?? null); ?>; 
+                        
+                       
+                        fetch(`../Get_Majors.php?department_id=${val}`)
+                        .then(res => res.json())
+                        .then(data => {
+
+                            let majorsSelect = document.getElementById('filter_major_id');
+                            majorsSelect.innerHTML = '';
+
+                            let defaultOption = document.createElement('option');
+                            defaultOption.value = '';
+                            defaultOption.textContent = 'Select Major';
+                            majorsSelect.appendChild(defaultOption);
+
+                            data.forEach(item => {
+                                let option = document.createElement('option');
+                                option.value = item.id;
+                                option.selected = item.id === selected_major ? true:false;
+                                option.textContent = item.name;
+                                majorsSelect.appendChild(option);
+                            });
+
+                        })
+
+                    }) ;
+
+                  
+                  </script>
                 <script>
 
-                        let categoryId =                                                                                                                                                                 <?php echo json_encode($category_id_selected ?? null); ?>;
-                        let depId =                                                                                                                                             <?php echo json_encode($department_id_selected ?? null); ?>;
+                        let majorId =     <?php echo json_encode($major_id_selected ?? null); ?>;                                                                                                                                                            <?php echo json_encode($major_id_selected ?? null); ?>;
+                        let depId =   <?php echo json_encode($department_id_selected ?? null); ?>;                                                                                                                                          <?php echo json_encode($department_id_selected ?? null); ?>;
 
 
-                        document.getElementById('filter-type').addEventListener('change', function() {
+                        document.getElementById('dep_filter_type').addEventListener('change', function() {
 
                             depId = this.value;
 
-                            if(!categoryId) {
-
+                           
                                 document.location = `./marketplace.php?department_id=${this.value}`;
-                            } else {
-                                document.location = `./marketplace.php?department_id=${this.value}&category_id=${categoryId}`;
-
-                            }
+                           
                         });
 
-                        document.getElementById('category_id').addEventListener('change', function() {
+                        document.getElementById('filter_major_id').addEventListener('change', function() {
 
-                            categoryId = this.value;
+                            majorId = this.value;
 
                             if(!depId) {
 
-                                document.location = `./marketplace.php?category_id=${this.value}`;
+                                document.location = `./marketplace.php?major_id=${this.value}`;
                             } else {
-                                document.location = `./marketplace.php?department_id=${depId}&category_id=${this.value}`;
+                                document.location = `./marketplace.php?department_id=${depId}&major_id=${this.value}`;
 
                             }
                         });
@@ -228,13 +247,13 @@ ORDER BY m.id DESC;";
                         $marketplace_image = $row1['image'];
                         $status            = $row1['status'];
                         $description       = $row1['description'];
-                        $category_id       = $row1['category_id'];
+                        $major_id       = $row1['major'];
                         $student_id        = $row1['student_id'];
 
-                        $sql2 = mysqli_query($con, "SELECT * from categories WHERE id = '$category_id'");
+                        $sql2 = mysqli_query($con, "SELECT * from majors WHERE id = '$major_id'");
                         $row2 = mysqli_fetch_array($sql2);
 
-                        $category_name = $row2['name'];
+                        $major_name = $row2['name'];
 
                         $sql3 = mysqli_query($con, "SELECT * from students WHERE id = '$student_id'");
                         $row3 = mysqli_fetch_array($sql3);
@@ -255,7 +274,7 @@ ORDER BY m.id DESC;";
                         <p class="c-grey fs-13 mt-5 mb-0"><?php echo $description ?></p>
                     </div>
                     <div class="tags mt-10 mb-10">
-                    <span class="tag"><?php echo $category_name ?></span>
+                    <span class="tag"><?php echo $major_name ?></span>
                     </div>
                     <span class="availability c-grey mb-10 mt-10">Available for Exchange</span>
                     <div class="contact">
@@ -406,7 +425,7 @@ ORDER BY m.id DESC;";
     </div>
     <div id="card" class="new-card hidden" style="height: 535px !important;">
         <div class="card-header">
-            <h2>Report Found Item</h2>
+            <h2>Add your Book</h2>
             <button id="closeCardBtn" class="close-btn">&times;</button>
         </div>
         <form action="./marketplace.php" method="POST" enctype="multipart/form-data">
@@ -418,25 +437,7 @@ ORDER BY m.id DESC;";
                 <label for="fn">Desciption</label>
                 <input type="text" placeholder="Desciption of the item" name="description">
             </div>
-            <div class="form-group">
-                <label for="category_id">Category</label>
-                <select id="category_id" name="category_id">
-                <?php
-                    $sql1 = mysqli_query($con, "SELECT * from categories WHERE type = 'losts'");
-
-                    while ($row1 = mysqli_fetch_array($sql1)) {
-
-                        $category_id   = $row1['id'];
-                        $category_name = $row1['name'];
-
-                    ?>
-
-<option value="<?php echo $category_id ?>"><?php echo $category_name ?></option>
-<?php
-}?>
-                </select>
-            </div>
-            <div class="form-group">
+             <div class="form-group">
                 <label for="department_id">Faculty</label>
                 <select id="department_id" name="department_id">
                 <?php
@@ -454,6 +455,40 @@ ORDER BY m.id DESC;";
 }?>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="major_id">Majors</label>
+                <select id="major_id" name="major_id">
+               
+                </select>
+            </div>
+             <script>
+                    document.getElementById('department_id').addEventListener('change', function() {
+
+                        fetch(`../Get_Majors.php?department_id=${this.value}`)
+                        .then(res => res.json())
+                        .then(data => {
+
+                            let majorsSelect = document.getElementById('major_id');
+                            majorsSelect.innerHTML = '';
+
+                            let defaultOption = document.createElement('option');
+                            defaultOption.value = '';
+                            defaultOption.textContent = 'Select Major';
+                            majorsSelect.appendChild(defaultOption);
+
+                            data.forEach(item => {
+                                let option = document.createElement('option');
+                                option.value = item.id;
+                                option.textContent = item.name;
+                                majorsSelect.appendChild(option);
+                            });
+
+                        })
+
+                    })
+                  </script>
+           
             <div class="form-group" >
                 <label for="fn">Upload Image</label>
                 <input type="file" name="file">

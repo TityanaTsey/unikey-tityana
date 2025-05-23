@@ -14,7 +14,7 @@ $rooms = [];
 if ($room_id && is_numeric($room_id)) {
     // Only fetch if user is a member
     $stmt = $con->prepare("
-        SELECT r.id, r.title
+        SELECT r.id, r.title,r.item_id,r.market_id
         FROM rooms r
         JOIN room_members rm ON r.id = rm.room_id
         WHERE r.id = ? AND rm.student_id = ?
@@ -31,9 +31,10 @@ if ($room_id && is_numeric($room_id)) {
 
 // Now get **all** rooms the user is a member of (avoids duplicate)
 $stmt = $con->prepare("
-    SELECT r.id, r.title
+    SELECT r.id, r.title, r.item_id,r.market_id ,r.created_by, cr.fname,cr.lname
     FROM rooms r
     JOIN room_members rm ON r.id = rm.room_id
+    JOIN students cr ON r.created_by = cr.id
     WHERE rm.student_id = ?
 ");
 $stmt->bind_param("i", $S_ID);

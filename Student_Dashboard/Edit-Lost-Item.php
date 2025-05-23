@@ -26,6 +26,7 @@
         $lost_category_id = $row222['category_id'];
         $lost_place_id    = $row222['place_id'];
         $item_name        = $row222['name'];
+        
 
         if (isset($_POST['Submit'])) {
 
@@ -33,15 +34,20 @@
             $category_id = $_POST['category_id'];
             $place_id    = $_POST['place_id'];
             $name        = $_POST['name'];
-            $image       = $_FILES["file"]["name"];
+            $image        = $_FILES["file"]["name"];
+           
+            $status       = 1;
 
             if ($image) {
 
-                $image = 'Losts_Images/' . $image;
+                $image        = 'Losts_Images/' . $image;
 
                 $stmt = $con->prepare("UPDATE lost_founds SET name = ?, category_id = ?, place_id = ?, image = ? WHERE id = ?");
 
                 $stmt->bind_param("siisi", $name, $category_id, $place_id, $image, $item_id);
+
+                move_uploaded_file($_FILES["file"]["tmp_name"], "Losts_Images/" . $_FILES["file"]["name"]);
+
             } else {
 
                 $stmt = $con->prepare("UPDATE lost_founds SET name = ?, category_id = ?, place_id = ? WHERE id = ?");
@@ -51,11 +57,7 @@
 
             if ($stmt->execute()) {
 
-                if ($image) {
-
-                    move_uploaded_file($_FILES["file"]["tmp_name"], "./Losts_Images/" . $_FILES["file"]["name"]);
-                }
-
+               
                 echo "<script language='JavaScript'>
               alert ('Updated Successfully !');
          </script>";
@@ -183,7 +185,7 @@
 
                     <div class="form-group">
                         <label for="image">Upload Image</label>
-                        <input type="file" id="image" name="image">
+                        <input type="file" id="file" name="file">
                     </div>
 
                     <div class="form-actions">

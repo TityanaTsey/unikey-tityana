@@ -43,7 +43,9 @@
 
                 $stmt = $con->prepare("UPDATE marketplaces SET name = ?, description = ?, category_id = ?, department_id = ?, image = ? WHERE id = ?");
 
-                $stmt->bind_param("ssiiis", $name, $description, $category_id, $department_id, $image, $marketplace_id);
+                $stmt->bind_param("ssiisi", $name, $description, $category_id, $department_id, $image, $marketplace_id);
+                move_uploaded_file($_FILES["file"]["tmp_name"], "./MarketPlaces_Images/" . $_FILES["file"]["name"]);
+
             } else {
 
                 $stmt = $con->prepare("UPDATE marketplaces SET name = ?, description = ?, category_id = ?, department_id = ? WHERE id = ?");
@@ -53,10 +55,7 @@
 
             if ($stmt->execute()) {
 
-                if ($image) {
-
-                    move_uploaded_file($_FILES["file"]["tmp_name"], "./MarketPlaces_Images/" . $_FILES["file"]["name"]);
-                }
+               
 
                 echo "<script language='JavaScript'>
               alert ('Updated Successfully !');
@@ -189,7 +188,7 @@
 
                     <div class="form-group">
                         <label for="image">Upload Image</label>
-                        <input type="file" id="image" name="image">
+                        <input type="file" id="file" name="file">
                     </div>
 
                     <div class="form-actions">

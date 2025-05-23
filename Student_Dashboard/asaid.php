@@ -17,6 +17,12 @@
                     <span>Events</span>
                 </a>
             </li>
+             <li>
+                <a class="<?php echo $_SERVER['PHP_SELF'] === '/Student_Dashboard/chat.php' ? 'active' : '' ?>  d-flex align-center fs-14 c-black rad-6 p-10" href="chat.php">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span>chat</span>
+                </a>
+            </li>
             <li>
                 <a class="<?php echo $_SERVER['PHP_SELF'] === '/Student_Dashboard/announcement.php' ? 'active' : '' ?>  d-flex align-center fs-14 c-black rad-6 p-10" href="announcement.php">
                     <i class="fa-solid fa-bullhorn"></i>

@@ -18,9 +18,6 @@ session_start();
     }
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,91 +37,38 @@ session_start();
     <link rel="stylesheet" href="../css/framework.css" />
     <link rel="stylesheet" href="../css/help.css" />
     <link rel="stylesheet" href="../css/side.css" />
-    <!-- <link rel="stylesheet" href="../css/master.css" /> -->
+	 
+
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" rel="stylesheet" />
+    <style>
+    
+    </style>
 </head>
 
 <body>
     <div class="page d-flex">
         <div class="sidebar bg-white p-20 p-relative">
-            <a href="landing.html"><h3 class="p-relative txt-c mt-0">UniKey</h3></a>
-            <ul>
-                <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="index.php">
-                        <i class="fa-regular fa-chart-bar fa-fw"></i>
-                        <span>Home</span>
-                    </a>
-                </li>
-              
-                
-                <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="lost.php">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <span>Lost/Found</span>
-                    </a>
-                </li>
-               
-                <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="event.php">
-                        <i class="fa-regular fa-calendar"></i>
-                        <span>Events</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="announcement.php">
-                        <i class="fa-solid fa-bullhorn"></i>
-                        <span>Announcements</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="marketplace.php">
-                        <i class="fa-solid fa-store"></i>
-                        <span>BookTrade</span>
-                    </a>
-                </li>
-                 <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="portals.php">
-                        <i class="fa-solid fa-door-open"></i>
-                        <span>Portals</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="map.php">
-                        <i class="fa-solid fa-map"></i>
-                        <span>Map</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="settings.php">
-                        <i class="fa-solid fa-gear fa-fw"></i>
-                        <span>Settings</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="active d-flex align-center fs-14 c-black rad-6 p-10" href="help.php">
-                        <i class="fa-solid fa-circle-info"></i>
-                        <span>Help</span>
-                    </a>
-                </li>
-            </ul>
+            <a href="landing.html">
+                <h3 class="p-relative txt-c mt-0">UniKey</h3>
+            </a>
+            <?php require './asaid.php'?>
         </div>
+
         <div class="content w-full">
             <!-- Start Head -->
             <div class="head bg-white p-15 between-flex">
                 <div class="user-display p-relative d-flex align-center">
                     <i class="fa-solid fa-user-circle fa-lg c-main mr-10"></i>
-                    <span class="fs-14 fw-500"><?php echo $name ?></span> <!-- Replace with dynamic username -->
+                    <span class="fs-14 fw-500"> <?php echo $name ?></span> <!-- Replace with dynamic username -->
                 </div>
                 <div class="icons d-flex align-center">
                     <span class="notification p-relative">
                         <i class="fa-regular fa-bell fa-lg"></i>
-                          <a href="./logout.php" title="Logout" style="color: inherit; margin-left: 15px;">
                         <i class="fa-solid fa-right-from-bracket"></i>
-                        </a>
                     </span>
                 </div>
             </div>
@@ -135,37 +79,39 @@ session_start();
                 <!-- Section 1: Welcome Section -->
                 <div class="welcome-section">
                     <h1>How can we help?</h1>
-                    <input type="text" class="p-10" placeholder="Describe your issue or question..."
+                    <input type="text" id="helpSearch" class="p-10" placeholder="Describe your issue or question..."
                         style="width: 100%; max-width: 600px; margin-top: 20px;">
+                    <div id="searchResults" class="search-results"></div>
                 </div>
 
                 <!-- Section 2: Services Grid -->
                 <div class="services-grid">
                     <!-- FAQ Box -->
-                    <div class="service-box faq">
+                    <div class="service-box faq" id="faqSection">
                         <img src="../imgs/faq.png" alt="FAQ">
                         <h3>FAQ</h3>
                         <p>Find answers to frequently asked questions about UniKey.</p>
                         <ul>
-                            <li>How do I reset my password?</li>
-                            <li>How do I report a lost item?</li>
-                            <li>How do I access the university map?</li>
+                            <li data-search-term="reset password"><a href="helpn.php">How do I reset my password?</a>
+                                
+                            </li>
+                           
+                            <li data-search-term="report lost item"><a href="helpn1.php">How do I report a lost item?</a></li>
+                            <li data-search-term="access university map"><a href="helpn2.php">How do I access the university map?</a></li>
                         </ul>
-                        <button  class="save fs-14 bg-olive c-beige b-none w-fit btn-shape" style="cursor: pointer;">View FAQ</button>
-
+                        <button class="save fs-14 bg-olive c-beige b-none w-fit btn-shape" style="cursor: pointer;"><a href="helpall.php">View FAQ</a></button>
                     </div>
 
                     <!-- User Guide & Tutorials Box -->
-                    <div class="service-box">
+                    <div class="service-box" id="tutorialsSection">
                         <img src="../imgs/guide.png" alt="User Guide">
                         <h3>User Guide & Tutorials</h3>
                         <p>Step-by-step guides and tutorials to help you use UniKey.<br> Here you'll find detailed instructions on how to use UniKey's features.</p>
                         <button class="save fs-14 bg-olive c-beige b-none w-fit btn-shape" style="cursor: pointer;">View Tutorials</button>
-
                     </div>
 
                     <!-- Contact Support Box -->
-                    <div class="service-box">
+                    <div class="service-box" id="contactSection">
                         <img src="../imgs/contact.png" alt="Contact Support">
                         <h3>Contact Support</h3>
                         <p>Reach out to our support team for personalized assistance.</p>
@@ -173,32 +119,32 @@ session_start();
                         <button class="save fs-14 bg-olive c-beige b-none w-fit btn-shape" style="cursor: pointer;" onclick="sendEmail()">Contact Us</button>                            
                     </div>
 
-                    <!-- Troubleshooting Guide Box -->
-                    <div class="service-box">
-                        <img src="../imgs/trouble.png" alt="Troubleshooting">
+                    <!-- Troubleshooting Guide Box 
+                    <div class="service-box" id="troubleshootingSection">
+                        <img src="imgs/trouble.png" alt="Troubleshooting">
                         <h3>Troubleshooting Guide</h3>
                         <p>Solve common issues with UniKey.</p>
                         <div class="reminders p-20 bg-white rad-10 p-relative">
                             <ul class="m-0">
-                                <li class="d-flex align-center mt-15">
+                                <li class="d-flex align-center mt-15" data-search-term="login issues">
                                     <span class="key bg-olive mr-15 d-block rad-half"></span>
                                     <div class="pl-15 olive">
                                         <p class="fs-14 fw-bold mt-0 mb-5">Login Issues</p>
                                     </div>
                                 </li>
-                                <li class="d-flex align-center mt-15">
+                                <li class="d-flex align-center mt-15" data-search-term="lost found errors">
                                     <span class="key bg-olive mr-15 d-block rad-half"></span>
                                     <div class="pl-15 olive">
                                         <p class="fs-14 fw-bold mt-0 mb-5">Lost & Found Errors</p>
                                     </div>
                                 </li>
-                                <li class="d-flex align-center mt-15">
+                                <li class="d-flex align-center mt-15" data-search-term="slow performance">
                                     <span class="key bg-olive mr-15 d-block rad-half"></span>
                                     <div class="pl-15 olive">
                                         <p class="fs-14 fw-bold mt-0 mb-5">Slow Performance</p>
                                     </div>
                                 </li>
-                                <li class="d-flex align-center mt-15">
+                                <li class="d-flex align-center mt-15" data-search-term="other issues">
                                     <span class="key bg-olive mr-15 d-block rad-half"></span>
                                     <div class="pl-15 olive">
                                         <p class="fs-14 fw-bold mt-0 mb-5">More</p>
@@ -207,9 +153,9 @@ session_start();
                             </ul>
                         </div>
                     </div>
-
+-->
                     <!-- Feedback & Suggestions Box -->
-                    <div class="service-box ">
+                    <div class="service-box" id="feedbackSection">
                         <img src="../imgs/feed.png" alt="Feedback">
                         <h3>Feedback & Suggestions</h3>
                         <p>Share your feedback and suggestions to improve UniKey.</p>
@@ -218,19 +164,163 @@ session_start();
                             <textarea class="d-block mb-20 w-full p-10 b-none bg-eee rad-6" placeholder="Your Thought"></textarea>
                             <button class="save fs-14 bg-olive c-beige b-none w-fit btn-shape" style="cursor: pointer;">Save</button>                            
                         </form>
-                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
     <script>
         function sendEmail() {
-                window.location.href = "mailto:unikey2025@gmail.com?subject=Contact Us&body=Please Tell Us Your Suggestion.";
-            }
+            window.location.href = "mailto:unikey2025@gmail.com?subject=Contact Us&body=Please Tell Us Your Suggestion.";
+        }
 
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('helpSearch');
+            const searchResults = document.getElementById('searchResults');
+            
+            // Sample data for search - you can expand this with more content
+            const searchData = [
+                { 
+                    title: "Reset Password", 
+                    content: "Learn how to reset your UniKey password", 
+                    section: "faqSection",
+                    terms: "reset password change credentials"
+                },
+                { 
+                    title: "Report Lost Item", 
+                    content: "Instructions for reporting lost items on campus", 
+                    section: "faqSection",
+                    terms: "report lost item missing belongings"
+                },
+                { 
+                    title: "University Map", 
+                    content: "How to access and use the interactive campus map", 
+                    section: "faqSection",
+                    terms: "university map campus navigation directions"
+                },
+                { 
+                    title: "Login Issues", 
+                    content: "Troubleshooting steps for login problems", 
+                    section: "troubleshootingSection",
+                    terms: "login issues sign in problems authentication"
+                },
+                { 
+                    title: "Lost & Found Errors", 
+                    content: "Solutions for common Lost & Found system errors", 
+                    section: "troubleshootingSection",
+                    terms: "lost found errors system issues"
+                },
+                { 
+                    title: "Slow Performance", 
+                    content: "How to improve UniKey app performance", 
+                    section: "troubleshootingSection",
+                    terms: "slow performance lagging loading issues"
+                },
+                { 
+                    title: "User Guides", 
+                    content: "Comprehensive guides for all UniKey features", 
+                    section: "tutorialsSection",
+                    terms: "user guides tutorials how-to instructions"
+                },
+                { 
+                    title: "Contact Support", 
+                    content: "Get direct help from our support team", 
+                    section: "contactSection",
+                    terms: "contact support help email phone"
+                },
+                { 
+                    title: "Feedback", 
+                    content: "Share your suggestions to improve UniKey", 
+                    section: "feedbackSection",
+                    terms: "feedback suggestions improvements ideas"
+                }
+            ];
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                searchResults.innerHTML = '';
+                
+                if (searchTerm.length < 2) {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                const results = searchData.filter(item => 
+                    item.terms.includes(searchTerm) || 
+                    item.title.toLowerCase().includes(searchTerm) || 
+                    item.content.toLowerCase().includes(searchTerm)
+                );
+                
+                if (results.length > 0) {
+                    results.forEach(result => {
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'search-result-item';
+                        resultItem.innerHTML = `
+                            <h4>${highlightMatches(result.title, searchTerm)}</h4>
+                            <p>${highlightMatches(result.content, searchTerm)}</p>
+                        `;
+                        resultItem.addEventListener('click', function() {
+                            // Scroll to the relevant section
+                            document.getElementById(result.section).scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                            searchResults.style.display = 'none';
+                        });
+                        searchResults.appendChild(resultItem);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'search-result-item';
+                    noResults.innerHTML = '<p>No results found. Try different keywords or contact support.</p>';
+                    searchResults.appendChild(noResults);
+                    searchResults.style.display = 'block';
+                }
+            });
+            
+            // Hide results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (e.target !== searchInput) {
+                    searchResults.style.display = 'none';
+                }
+            });
+            
+            // Highlight matching text in search results
+            function highlightMatches(text, term) {
+                if (!term) return text;
+                const regex = new RegExp(term, 'gi');
+                return text.replace(regex, match => `<span class="highlight">${match}</span>`);
+            }
+            
+            // Also search the FAQ items and troubleshooting items
+            const allSearchableItems = document.querySelectorAll('[data-search-term]');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                if (searchTerm.length < 2) {
+                    // Reset all items if search is empty
+                    allSearchableItems.forEach(item => {
+                        item.style.display = '';
+                    });
+                    return;
+                }
+                
+                // Search through items with data-search-term attribute
+                allSearchableItems.forEach(item => {
+                    const itemSearchTerm = item.getAttribute('data-search-term').toLowerCase();
+                    if (itemSearchTerm.includes(searchTerm)) {
+                        item.style.display = '';
+                        // Scroll parent into view if it's hidden
+                        item.closest('.service-box').style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

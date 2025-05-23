@@ -129,6 +129,7 @@ document.getElementById('category_id_filter').addEventListener('change', functio
                     $description = $row1['description'];
                     $category_id = $row1['category_id'];
 
+
                     $sql2 = mysqli_query($con, "SELECT * from categories WHERE id = '$category_id'");
                     $row2 = mysqli_fetch_array($sql2);
 
@@ -138,6 +139,16 @@ document.getElementById('category_id_filter').addEventListener('change', functio
                     $row3 = mysqli_fetch_array($sql3);
 
                     $members_count = $row3['members_count'];
+
+
+                                        $event_datetime = new DateTime($date);
+$current_datetime = new DateTime();
+
+// Compare datetimes
+if ($current_datetime > $event_datetime || $members_count >= $count ) {
+    $status = 'Expired';
+}
+                    
 
                 ?>
                 <div class="course bg-white rad-6 p-relative <?php echo $status === 'Expired' ? 'expired' : '' ?>">
@@ -156,7 +167,8 @@ document.getElementById('category_id_filter').addEventListener('change', functio
                         </div>
                     </div>
                     <div class="info p-15 p-relative between-flex">
-                        <span class="title bg-blue c-white btn-shape" id="see-<?php echo $event_id ?>" onclick="onClick(<?php echo $event_id ?>)">More Details</span>
+                      
+
                         <span class="c-grey">
                             <i class="fa-regular fa-user"></i>
                             <?php echo $members_count ?>/<?php echo $count ?>
@@ -169,7 +181,23 @@ document.getElementById('category_id_filter').addEventListener('change', functio
                         
                         <!-- <button class="reminder-btn bg-green c-white btn-shape">Set Up Reminder</button> -->
                     </div>
+                    <div style="padding:20px">
+ <?php if ($status != 'Expired'): ?>
+    <button style="
+            width:100%;
+            background-color: #314528;     /* Green */
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        "
+        onmouseover="this.style.backgroundColor='#4a5d3d'"
+        onmouseout="this.style.backgroundColor='#314528'" class="reminder-btn  bg-green c-white btn-shape" id="see-<?php echo $event_id ?>" onclick="onClick(<?php echo $event_id ?>)">More Details</button>
+<?php endif; ?>
+ </div>
                 </div>
+                
 
                 <?php
 }?>

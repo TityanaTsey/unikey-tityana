@@ -1,14 +1,9 @@
-
 <?php
-    session_start();
-
-    include "../Connect.php";
+session_start();
+ include "../Connect.php";
 
     $S_ID   = $_SESSION['S_Log'];
-    $filter = $_GET['filter'];
-    $place  = $_GET['place'];
-
-    if (! $S_ID) {
+     if (! $S_ID) {
 
         echo '<script language="JavaScript">
      document.location="../login.php";
@@ -19,14 +14,9 @@
         $sql1 = mysqli_query($con, "select * from students where id='$S_ID'");
         $row1 = mysqli_fetch_array($sql1);
 
-        $name  = $row1['fname'] . ' ' . $row1['lname'];
-        $email = $row1['email'];
-
+        $name          = $row1['fname'] . ' ' . $row1['lname'];
     }
-
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,8 +44,10 @@
 <body>
     <div class="page d-flex">
         <!-- Sidebar (identical to Lost & Found) -->
-        <div class="sidebar bg-white p-20 p-relative">
-            <h3 class="p-relative txt-c mt-0">UniKey</h3>
+      <div class="sidebar bg-white p-20 p-relative">
+            <a href="landing.html">
+                <h3 class="p-relative txt-c mt-0">UniKey</h3>
+            </a>
             <?php require './asaid.php'?>
         </div>
 
@@ -64,17 +56,15 @@
             <!-- Header (identical to Lost & Found) -->
             <div class="head bg-white p-15 between-flex">
                 <div class="user-display p-relative d-flex align-center">
-                      <a href="./logout.php" title="Logout" style="color: inherit; margin-left: 15px;">
                     <i class="fa-solid fa-user-circle fa-lg c-main mr-10"></i>
-                    </a>
                     <span class="fs-14 fw-500"><?php echo $name ?></span> <!-- Replace with dynamic username -->
                 </div>
                 <div class="icons d-flex align-center">
                     <span class="notification p-relative">
                         <i class="fa-regular fa-bell fa-lg"></i>
-                          <a href="./logout.php" title="Logout" style="color: inherit; margin-left: 15px;">
+                        <a href="./logout.php" title="Logout" style="color: inherit; margin-left: 15px;">
                         <i class="fa-solid fa-right-from-bracket"></i>
-                        </a>
+</a>
                     </span>
                 </div>
             </div>
@@ -98,41 +88,41 @@
                         <h3 class="c-olive">Student Portal</h3>
                         <p class="c-gray">Access your academic records, register for courses, and view your schedule.</p>
                         <div class="extra-links">
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Academic Records</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Course Registration</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Class Schedule</a>
+                            <a href="https://regapp.ju.edu.jo/regapp/" class="d-block p-5 c-gray hover-c-black">student registration </a>
+                            <a href="https://juexams.com/moodle/" class="d-block p-5 c-gray hover-c-black">juexames</a>
+                            <a href="https://elearning.ju.edu.jo/" class="d-block p-5 c-gray hover-c-black"> e-learning</a>
                         </div>
-                        <button class="btn-shape"
+                        <button class="btn-shape" 
                             onclick="togglePortal('studentPortal')">See More</button>
                     </div>
-
+                    
                     <div class="portal-box bg-white rad-10 p-20" id="elearningPortal">
                         <i class="fa-solid fa-laptop-code fa-3x c-olive"></i>
-                        <h3 class="c-olive">E-Learning Portal</h3>
-                        <p class="c-gray">Access course materials, submit assignments, and interact with instructors.</p>
+                        <h3 class="c-olive">University Portal</h3>
+                        <p class="c-gray">Official JU links for website access, complaints, and LinkedIn updates..</p>
                         <div class="extra-links">
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Moodle</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Lecture Slides</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Assignment Submission</a>
+                            <a href="https://www.ju.edu.jo/ar/arabic/Home.aspx" class="d-block p-5 c-gray hover-c-black">official website for univirsity</a>
+                            <a href="https://eservices.ju.edu.jo/complaintsys/login.aspx" class="d-block p-5 c-gray hover-c-black">complaints (مركز الشكاوي والاقتراحات )</a>
+                            <a href="https://www.linkedin.com/school/university-of-Jordan/posts/?feedView=all" class="d-block p-5 c-gray hover-c-black">JU on linkedin</a>
                         </div>
                         <button class="btn-shape"
                             onclick="togglePortal('elearningPortal')">See More</button>
                     </div>
-
+                    
                     <div class="portal-box bg-white rad-10 p-20" id="libraryPortal">
                         <i class="fa-solid fa-book fa-3x c-olive"></i>
                         <h3 class="c-olive">Library Portal</h3>
                         <p class="c-gray">Search for books, reserve materials, and access digital libraries.</p>
                         <div class="extra-links">
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Book Search</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">E-Journals</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Borrowed Books</a>
+                            <a href=" https://library.ju.edu.jo/NEWLIBRARY/EN_Library/Default.aspx" class="d-block p-5 c-gray hover-c-black">Library</a>
+                           <!-- <a href="#" class="d-block p-5 c-gray hover-c-black">E-Journals</a>
+                            <a href="#" class="d-block p-5 c-gray hover-c-black">Borrowed Books</a>-->
                         </div>
-                        <button class="btn-shape"
+                        <button class="btn-shape" 
                             onclick="togglePortal('libraryPortal')">See More</button>
                     </div>
-
-                    <div class="portal-box bg-white rad-10 p-20" id="emailPortal">
+                    
+                  <!--  <div class="portal-box bg-white rad-10 p-20" id="emailPortal">
                         <i class="fa-solid fa-envelope fa-3x c-olive"></i>
                         <h3 class="c-olive">Email Portal</h3>
                         <p class="c-gray">Check your university email and communicate with staff and peers.</p>
@@ -144,60 +134,59 @@
                         <button class="btn-shape" onclick="togglePortal('emailPortal')">See
                             More</button>
                     </div>
-
+                    -->
                     <div class="portal-box bg-white rad-10 p-20" id="financialPortal">
                         <i class="fa-solid fa-wallet fa-3x c-olive"></i>
-                        <h3 class="c-olive">Financial Services</h3>
-                        <p class="c-gray">Pay tuition, view invoices, and manage financial aid or scholarships.</p>
+                        <h3 class="c-olive">Deanship of Student Affairs</h3>
+                        <p class="c-gray">Manage student services, activities,with the Deanship of Student Affairs.</p>
                         <div class="extra-links">
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Tuition Fees</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Payment History</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Scholarships</a>
+                            <a href="https://studentaffairs.ju.edu.jo/Home.aspx" class="d-block p-5 c-gray hover-c-black">Official Deanship of Student Affairs</a>
+                            <a href="https://eservices.ju.edu.jo/JUCS/login.aspx" class="d-block p-5 c-gray hover-c-black">Community service and activities</a>
+                            <a href="https://eservices.ju.edu.jo/WebYearBook/" class="d-block p-5 c-gray hover-c-black">Web year book</a>
                         </div>
-                        <button class="btn-shape"
+                        <button class="btn-shape" 
                             onclick="togglePortal('financialPortal')">See More</button>
                     </div>
-
+                    
                     <div class="portal-box bg-white rad-10 p-20" id="internshipPortal">
                         <i class="fa-solid fa-briefcase fa-3x c-olive"></i>
-                        <h3 class="c-olive">Internship & Career Services</h3>
-                        <p class="c-gray">Find internships, job opportunities, and attend career events.</p>
+                        <h3 class="c-olive">Researches</h3>
+                        <p class="c-gray">Support and resources for academic research, publications, and research funding opportunities.</p>
                         <div class="extra-links">
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Job Listings</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Resume Builder</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Career Events</a>
+                            <a href="https://research.ju.edu.jo/Home.aspx" class="d-block p-5 c-gray hover-c-black">Scientific Research Deanship</a>
+                            <a href="https://actsau.ju.edu.jo/Home.aspx" class="d-block p-5 c-gray hover-c-black">Arab Council for Training & Student Creativity</a>
+                            
                         </div>
                         <button class="btn-shape"
                             onclick="togglePortal('internshipPortal')">See More</button>
                     </div>
-
+                    
                     <div class="portal-box bg-white rad-10 p-20" id="housingPortal">
                         <i class="fa-solid fa-building fa-3x c-olive"></i>
-                        <h3 class="c-olive">Housing Services</h3>
-                        <p class="c-gray">Apply for dorms, submit maintenance requests, and view housing rules.</p>
+                        <h3 class="c-olive">Scholarships & Loans</h3>
+                        <p class="c-gray">Explore available scholarships and loan programs to support your academic journey.</p>
                         <div class="extra-links">
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Dorm Application</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Maintenance Requests</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Housing Handbook</a>
+                            <a href="https://www.dsamohe.gov.jo/" class="d-block p-5 c-gray hover-c-black">Scholarships & Loans</a>
+                            <a href=" https://offices.ju.edu.jo/en/oir/lists/erasmusplus/alluni.aspx :" class="d-block p-5 c-gray hover-c-black">Erasmus</a>
                         </div>
                         <button class="btn-shape"
                             onclick="togglePortal('housingPortal')">See More</button>
                     </div>
-
+                    
                     <div class="portal-box bg-white rad-10 p-20" id="healthPortal">
                         <i class="fa-solid fa-heartbeat fa-3x c-olive"></i>
                         <h3 class="c-olive">Health Services</h3>
                         <p class="c-gray">Book clinic appointments, view medical history, and get health advice.</p>
                         <div class="extra-links">
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Appointments</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Medical Records</a>
-                            <a href="#" class="d-block p-5 c-gray hover-c-black">Wellness Tips</a>
+                            <a href="https://hospital.ju.edu.jo/Home.aspx" class="d-block p-5 c-gray hover-c-black">The university hospital</a>
+                            <a href="https://eservices.ju.edu.jo/ClinicApp/" class="d-block p-5 c-gray hover-c-black">Student clinic</a>
+                            <a href="https://apphosp.ju.edu.jo/Appointment/" class="d-block p-5 c-gray hover-c-black">Test results and appointments</a>
                         </div>
                         <button class="btn-shape"  onclick="togglePortal('healthPortal')">See
                             More</button>
                     </div>
-
-                    <div class="portal-box bg-white rad-10 p-20" id="transportPortal">
+                    
+                   <!-- <div class="portal-box bg-white rad-10 p-20" id="transportPortal">
                         <i class="fa-solid fa-bus fa-3x c-olive"></i>
                         <h3 class="c-olive">Transport Services</h3>
                         <p class="c-gray">Track university shuttles and manage parking permits.</p>
@@ -208,8 +197,8 @@
                         </div>
                         <button class="btn-shape"
                             onclick="togglePortal('transportPortal')">See More</button>
-                    </div>
-
+                    </div>-->
+                    
                     <!-- ... other portal boxes ... -->
                 </div>
             </div>

@@ -7,7 +7,7 @@
     $filter = $_GET['filter'];
     $place  = $_GET['place'];
 
-    if (! $S_ID) {
+    if (!$S_ID) {
 
         echo '<script language="JavaScript">
      document.location="../login.php";
@@ -64,6 +64,7 @@ ORDER BY lf.id DESC;";
             $category_id  = $_POST['category_id'];
             $student_id   = $_POST['student_id'];
             $place_id     = $_POST['place_id'];
+            $description = $_POST['description'];
             $name         = $_POST['name'];
             $type         = $_POST['type'];
             $last_seen_in = $_POST['last_seen_in'];
@@ -72,7 +73,7 @@ ORDER BY lf.id DESC;";
             $status       = 1;
             
 
-            $stmt = $con->prepare("INSERT INTO lost_founds (category_id, place_id, student_id, name, description, image, status) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $con->prepare("INSERT INTO lost_founds (category_id, place_id, student_id, name,Description, image, status) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
             $stmt->bind_param("iiisssi", $category_id, $place_id, $student_id, $name, $description, $image, $status);
 
@@ -246,6 +247,7 @@ let categoryId =                 <?php echo json_encode($filter ?? null); ?>;
                         $category_id = $row1['category_id'];
                         $student_id  = $row1['student_id'];
                         $place_id    = $row1['place_id'];
+                        $item_Description=$row1['Description'];
                         $item_name   = $row1['name'];
                         $item_image  = $row1['image'];
                         $type        = $row1['type'];
@@ -270,12 +272,17 @@ let categoryId =                 <?php echo json_encode($filter ?? null); ?>;
                         <img src="<?php echo $item_image; ?>" alt="<?php echo $type; ?>">
                         <div class="info">
                            <h5><i class="fa-solid fa-shirt"></i> <?php echo $item_name ?> </h5>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <?php echo $type ?></h5>
-                            <p><?php echo $item_name ?></p>
+                            <!--<p><#?php echo $item_name ?></p>-->
+                            <div class="info">
+                            <h5><i class="fa-solid fa-location-dot"></i> Description</h5>
+                            <p><?php echo $item_Description; ?></p>
+                        </div>
                         </div>
                         <div class="info">
                             <h5><i class="fa-solid fa-location-dot"></i> Found Location</h5>
                             <p><?php echo $place_name; ?></p>
                         </div>
+                        
                         <div class="info">
                             <h5><i class="fa-solid fa-tag"></i> Category</h5>
                             <p><?php echo $category_name; ?></p>
@@ -286,7 +293,7 @@ let categoryId =                 <?php echo json_encode($filter ?? null); ?>;
 
 
 <div class="contact">
-    <button class="save  fs-14 bg-olive c-beige b-none w-fit btn-shape mt-10" id="btnFound"
+    <button class="save  fs-14 bg-olive c-beige b-none w-fit btn-shape mt-10 btnmarketchat" id="btnFound"
         style="cursor: pointer;" data-item-id="<?php echo $item_id ?>">Contact Finder</button>
 </div>
 
@@ -374,14 +381,19 @@ let categoryId =                 <?php echo json_encode($filter ?? null); ?>;
     <script>
 
         document.addEventListener("DOMContentLoaded", function () {
+ 
 
-            document.getElementById('btnFound').addEventListener('click', async () => {
-  // Assuming you have the item ID somewhere accessible in JS,
-  // e.g., as a data attribute on the button or elsewhere
-  const itemId = btnFound.dataset.itemId;  // example if stored in data-item-id attr
-                console.log(itemId)
+  const buttons = document.querySelectorAll('.btnmarketchat');
+
+            buttons.forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+
+ 
+  
+  const itemId = btn.dataset.itemId;
+
   if (!itemId) {
-    alert('Item ID not set!');
+    alert('market ID not set!');
     return;
   }
 
@@ -411,16 +423,52 @@ console.log(result)
     alert('Request failed: ' + error.message);
   }
 });
+            })
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
 
 
             document.getElementById('addCardBtn').addEventListener('click', function () {
-                document.getElementById('card').classList.remove('hidden');
+               document.getElementById('card').classList.remove('hidden');
                 document.querySelector('.content').classList.add('blur');
             });
 
             document.getElementById('closeCardBtn').addEventListener('click', function () {
-                document.getElementById('card').classList.add('hidden');
-                document.querySelector('.content').classList.remove('blur');
+               document.getElementById('card').classList.add('hidden');
+               document.querySelector('.content').classList.remove('blur');
             });
 
             // Filter function placeholder
@@ -437,10 +485,11 @@ console.log(result)
                     }
                 });
             }
-        });
+       
         document.getElementById('closeCardBtn').addEventListener('click', function () {
-                document.getElementById('card').classList.add('hidden');
+               document.getElementById('card').classList.add('hidden');
             });
+             
     </script>
 </body>
 
