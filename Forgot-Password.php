@@ -42,12 +42,12 @@
                         $mail->isSMTP();
                         $mail->Host       = 'smtp.gmail.com';
                         $mail->SMTPAuth   = true;
-                        $mail->Username   = 'projectunikey@gmail.com';
-                        $mail->Password   = 'ocnabhqxscjnfxfn';
+                        $mail->Username   = 'unikeyproj@gmail.com';
+                        $mail->Password   = 'bobl rknu ojwk nvwq';
                         $mail->SMTPSecure = 'ssl';
                         $mail->Port       = 465;
 
-                        $mail->setFrom("projectunikey@gmail.com");
+                        $mail->setFrom("unikeyproj@gmail.com");
 
                         $mail->addAddress($student_email);
 
