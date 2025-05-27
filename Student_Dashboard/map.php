@@ -57,18 +57,7 @@ session_start();
         </div>
         <div class="content w-full">
             <!-- Start Head -->
-            <div class="head bg-white p-15 between-flex">
-                <div class="user-display p-relative d-flex align-center">
-                    <i class="fa-solid fa-user-circle fa-lg c-main mr-10"></i>
-                    <span class="fs-14 fw-500"><?php echo $name ?></span> <!-- Replace with dynamic username -->
-                </div>
-                <div class="icons d-flex align-center">
-                    <span class="notification p-relative">
-                        <i class="fa-regular fa-bell fa-lg"></i>
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </span>
-                </div>
-            </div>
+               <?php require './navbar.php'?>
             <h1>University of Jordan Campus Map</h1>
             <div class="map-filters">
                 <div class="filter-options">

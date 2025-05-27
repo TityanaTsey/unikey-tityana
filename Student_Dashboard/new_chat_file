@@ -163,165 +163,19 @@ $user_nick = $row1['fname'];
     </div>
 
     <script>
-        const currentUser = {
-     id: <?php echo $S_ID; ?>
- };
- let rooms = [],
-     currentRoom = null,
-     globalSince = 0,
-     polling = true;
- let renderedIds = new Set();
- let readTimestamps = JSON.parse(
-     localStorage.getItem('chat_readTimestamps') || '{}'
- );
-
- function saveReadTimestamps() {
-     localStorage.setItem(
-         'chat_readTimestamps',
-         JSON.stringify(readTimestamps)
-     );
- }
- const roomListEl = document.getElementById('roomList'),
-     chatHeaderEl = document.getElementById('chatHeader'),
-     chatMessagesEl = document.getElementById('chatMessages'),
-     sendFormEl = document.getElementById('sendForm'),
-     msgInputEl = document.getElementById('msgInput'),
-     currentRoomTitleEl = document.getElementById('currentRoomTitle'),
-     roomStatusEl = document.getElementById('roomStatus');
- async function fetchRooms() {
-     try {
-         let r = await fetch('chat_api_rooms.php');
-         return await r.json();
-     } catch (e) {
-         console.error(e);
-         return [];
-     }
- }
-
- function renderRooms() {
-     if (!rooms.length) {
-         roomListEl.innerHTML = '<div class="no-rooms">No conversations</div>';
-         return;
-     }
-     rooms.sort((a, b) => (b.unread - a.unread) || (new Date(b.last_activity) - new Date(a.last_activity)));
-     roomListEl.innerHTML = '';
-     rooms.forEach(r => {
-         const lastSeen = readTimestamps[r.id];
-         r.unread = !lastSeen || new Date(r.last_activity) > new Date(lastSeen);
-         let el = document.createElement('div');
-         el.className = 'chat-contact' + (currentRoom && r.id === currentRoom.id ? ' active' : '');
-         el.dataset.roomId = r.id;
-         el.innerHTML = `<i class="fas fa-user-circle fa-2x mr-10"></i><div class="chat-contact-info"><h4>${escape(r.title)}</h4><p>${escape(r.fname)} ${escape(r.lname)}</p></div><div class="chat-contact-time">${fmt(r.last_activity)}</div>`;
-         if (r.unread) {
-             let d = document.createElement('span');
-             d.className = 'unread-dot';
-             el.appendChild(d);
-         }
-         el.addEventListener('click', () => switchRoom(r.id));
-         roomListEl.appendChild(el);
-     });
- }
- async function switchRoom(id) {
-     console.log(id)
-     renderedIds = new Set()
-     readTimestamps[id] = rooms.find(r => r.id === id).last_activity;
-     saveReadTimestamps();
-     currentRoom = rooms.find(r => r.id === id);
-     currentRoom.unread = false;
-     renderRooms();
-     chatHeaderEl.style.display = 'flex';
-     currentRoomTitleEl.textContent = currentRoom.title;
-     roomStatusEl.textContent = 'Loading...';
-     chatMessagesEl.innerHTML = '';
-     sendFormEl.style.display = 'flex';
-     await loadHistory(id);
- }
- async function loadHistory(roomId) {
-     try {
-         let r = await fetch(`chat_api_history.php?room=${roomId}`),
-             msgs = await r.json();
-         msgs.forEach(m => renderMsg(m));
-         roomStatusEl.textContent = 'Online';
-     } catch (e) {
-         console.error(e);
-         roomStatusEl.textContent = 'Error';
-     }
- }
-
- function renderMsg(m) {
-     if (renderedIds.has(m.id)) return;
-     renderedIds.add(m.id);
-
-     let div = document.createElement('div'),
-         me = m.student_id == currentUser.id;
-     div.className = 'message ' + (me ? 'sent' : 'received');
-     div.innerHTML = `<div class="message-content">${escape(m.body)}</div><div class="message-time">${fmt(m.created)}</div>`;
-     chatMessagesEl.appendChild(div);
-     chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
- }
- async function pollMsgs() {
-     while (polling) {
-         try {
-             let r = await fetch(`chat_api_poll.php?since=${globalSince}`),
-                 msgs = await r.json();
-             msgs.forEach(m => {
-                 globalSince = Math.max(globalSince, m.id);
-                 let room = rooms.find(r => r.id === m.room_id);
-                 if (!room) return;
-                 room.last_activity = m.created;
-                 if (currentRoom && currentRoom.id === m.room_id) renderMsg(m);
-                 else room.unread = true;
-             });
-             renderRooms();
-         } catch (e) {
-             console.error(e);
-         }
-         await new Promise(r => setTimeout(r, 2000));
-     }
- }
- sendFormEl.addEventListener('submit', async e => {
-     e.preventDefault();
-     let t = msgInputEl.value.trim();
-     if (!t || !currentRoom) return;
-     let fd = new FormData();
-     fd.append('room', currentRoom.id);
-     fd.append('text', t);
-     try {
-         await fetch('chat_api_send.php', {
-             method: 'POST',
-             body: fd
-         });
-         msgInputEl.value = '';
-     } catch (e) {
-         console.error(e);
-     }
- });
-
- function escape(s) {
-     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
- }
-
- function fmt(t) {
-     return new Date(t).toLocaleTimeString([], {
-         hour: '2-digit',
-         minute: '2-digit'
-     });
- }
- (async () => {
-     rooms = await fetchRooms();
-     rooms.forEach(r => r.unread = false);
-     renderRooms();
-     const urlParams = new URLSearchParams(window.location.search);
-     const roomIdParam = urlParams.get('room');
-     if (roomIdParam) {
-         const target = rooms.find(r => String(r.id) === roomIdParam);
-         if (target) {
-             await switchRoom(target.id);
-         }
-     }
-
-     pollMsgs();
- })();
+        const currentUser = { id: <?php echo $S_ID; ?> };
+        let rooms = [], currentRoom=null, globalSince=0, polling=true;
+        const roomListEl=document.getElementById('roomList'), chatHeaderEl=document.getElementById('chatHeader'), chatMessagesEl=document.getElementById('chatMessages'), sendFormEl=document.getElementById('sendForm'), msgInputEl=document.getElementById('msgInput'), currentRoomTitleEl=document.getElementById('currentRoomTitle'), roomStatusEl=document.getElementById('roomStatus');
+        async function fetchRooms(){ try{let r=await fetch('chat_api_rooms.php');return await r.json();}catch(e){console.error(e);return [];} }
+        function renderRooms(){ if(!rooms.length){roomListEl.innerHTML='<div class="no-rooms">No conversations</div>';return;}rooms.sort((a,b)=>(b.unread-a.unread)|| (new Date(b.last_activity)-new Date(a.last_activity)));roomListEl.innerHTML='';rooms.forEach(r=>{let el=document.createElement('div');el.className='chat-contact'+(currentRoom&&r.id===currentRoom.id?' active':'');el.dataset.roomId=r.id;el.innerHTML=`<i class="fas fa-user-circle fa-2x mr-10"></i><div class="chat-contact-info"><h4>${escape(r.title)}</h4><p>${escape(r.fname)} ${escape(r.lname)}</p></div><div class="chat-contact-time">${fmt(r.last_activity)}</div>`;if(r.unread){let d=document.createElement('span');d.className='unread-dot';el.appendChild(d);}el.addEventListener('click',()=>switchRoom(r.id));roomListEl.appendChild(el);});}
+        async function switchRoom(id){currentRoom=rooms.find(r=>r.id===id);currentRoom.unread=false;renderRooms();chatHeaderEl.style.display='flex';currentRoomTitleEl.textContent=currentRoom.title;roomStatusEl.textContent='Loading...';chatMessagesEl.innerHTML='';sendFormEl.style.display='flex';await loadHistory(id);}        
+        async function loadHistory(roomId){try{let r=await fetch(`chat_api_history.php?room=${roomId}`),msgs=await r.json();msgs.forEach(m=>renderMsg(m));roomStatusEl.textContent='Online';}catch(e){console.error(e);roomStatusEl.textContent='Error';}}
+        function renderMsg(m){let div=document.createElement('div'),me=m.student_id==currentUser.id;div.className='message '+(me?'sent':'received');div.innerHTML=`<div class="message-content">${escape(m.body)}</div><div class="message-time">${fmt(m.created)}</div>`;chatMessagesEl.appendChild(div);chatMessagesEl.scrollTop=chatMessagesEl.scrollHeight;}
+        async function pollMsgs(){while(polling){try{let r=await fetch(`chat_api_poll.php?since=${globalSince}`),msgs=await r.json();msgs.forEach(m=>{globalSince=Math.max(globalSince,m.id);let room=rooms.find(r=>r.id===m.room_id);if(!room)return;room.last_activity=m.created;if(currentRoom&&currentRoom.id===m.room_id) renderMsg(m);else room.unread=true;});renderRooms();}catch(e){console.error(e);}await new Promise(r=>setTimeout(r,2000));}}
+        sendFormEl.addEventListener('submit',async e=>{e.preventDefault();let t=msgInputEl.value.trim();if(!t||!currentRoom)return;let fd=new FormData();fd.append('room',currentRoom.id);fd.append('text',t);try{await fetch('chat_api_send.php',{method:'POST',body:fd});msgInputEl.value='';}catch(e){console.error(e);} });
+        function escape(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
+        function fmt(t){return new Date(t).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});}        
+        (async()=>{rooms=await fetchRooms();rooms.forEach(r=>r.unread=false);renderRooms();pollMsgs();})();
     </script>
 </body>
 </html>

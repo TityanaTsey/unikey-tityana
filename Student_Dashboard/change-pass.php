@@ -62,15 +62,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UniKey - Change Password</title>
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-    <link rel="shortcut icon" href="favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="favicon/site.webmanifest" />
+    <link rel="icon" type="image/png" href="../favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="../favicon/site.webmanifest" />
     <!-- css -->
     <link rel="stylesheet" href="../css/all.min.css" />
     <link rel="stylesheet" href="../css/framework.css" />
     <link rel="stylesheet" href="../css/side.css" />
+    <link rel="stylesheet" href="../css/login_signup.css" />
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -223,22 +224,39 @@
 
                     <input type="hidden" name="student_id" value="<?php echo $S_ID ?>">
 
+                       
                         <div class="form-group">
-                            <label for="newPassword">New Password</label>
-                            <div class="password-input">
-                                <input type="password" id="newPassword" name="password" required>
-                                <i class="fa-solid fa-eye toggle-password"></i>
+                            <label for="pass">New Password</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="newPassword" placeholder="Create a password" name="password" required>
+                                <i class="fa-solid fa-lock input-icon"></i>
+                                <i class="fa-solid fa-eye password-toggle" id="togglePassword1"></i>
+                            </div>
+                            <div id="password-strength-meter" class="strength-meter">
+                                <div class="strength-meter-fill" data-strength="0"></div>
+                            </div>
+                            <div id="password-rules" class="password-rules">
+                                <p class="rules-title">Password must contain:</p>
+                                <ul class="rules-list">
+                                    <li id="req-length" class="invalid">At least 8 characters</li>
+                                    <li id="req-uppercase" class="invalid">At least 1 uppercase letter</li>
+                                    <li id="req-lowercase" class="invalid">At least 1 lowercase letter</li>
+                                    <li id="req-number" class="invalid">At least 1 number</li>
+                                    <li id="req-special" class="invalid">At least 1 special character</li>
+                                </ul>
                             </div>
                         </div>
-
                         <div class="form-group">
-                            <label for="confirmPassword">Confirm New Password</label>
-                            <div class="password-input">
-                                <input type="password" id="confirmPassword" name="confirm_password" required>
-                                <i class="fa-solid fa-eye toggle-password"></i>
+                            <label for="confirm-pass">Confirm New Password</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="confirmPassword" placeholder="Confirm your password" name="confirm_password" required>
+                                <i class="fa-solid fa-lock input-icon"></i>
+                                <i class="fa-solid fa-eye password-toggle" id="togglePassword2"></i>
                             </div>
-                            <p class="match-indicator"><i class="fa-solid fa-check"></i> Passwords match</p>
-                        </div>
+                            <div id="password-match" class="password-match">
+                                <span id="match-icon" class="fas"></span>
+                                <span id="match-text"></span>
+                            </div>
 
                         <div class="form-actions">
                             <button type="button" class="btn-shape cancel-btn">Cancel</button>
@@ -249,69 +267,70 @@
             </div>
         </div>
     </div>
-    <script >
-    // Password toggle visibility
-        document.querySelectorAll('.toggle-password').forEach(icon => {
-            icon.addEventListener('click', function () {
-                const input = this.previousElementSibling;
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    this.classList.replace('fa-eye', 'fa-eye-slash');
-                } else {
-                    input.type = 'password';
-                    this.classList.replace('fa-eye-slash', 'fa-eye');
-                }
-            });
-        });
+    <script  src="../js/signup.js">
+        
+    // // Password toggle visibility
+    //     document.querySelectorAll('.toggle-password').forEach(icon => {
+    //         icon.addEventListener('click', function () {
+    //             const input = this.previousElementSibling;
+    //             if (input.type === 'password') {
+    //                 input.type = 'text';
+    //                 this.classList.replace('fa-eye', 'fa-eye-slash');
+    //             } else {
+    //                 input.type = 'password';
+    //                 this.classList.replace('fa-eye-slash', 'fa-eye');
+    //             }
+    //         });
+    //     });
 
-        // Password match indicator
-        document.getElementById('confirmPassword').addEventListener('input', function () {
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = this.value;
-            const matchIndicator = document.querySelector('.match-indicator');
+    //     // Password match indicator
+    //     document.getElementById('confirmPassword').addEventListener('input', function () {
+    //         const newPassword = document.getElementById('newPassword').value;
+    //         const confirmPassword = this.value;
+    //         const matchIndicator = document.querySelector('.match-indicator');
 
-            if (confirmPassword.length === 0) {
-                matchIndicator.style.display = 'none';
-                return;
-            }
+    //         if (confirmPassword.length === 0) {
+    //             matchIndicator.style.display = 'none';
+    //             return;
+    //         }
 
-            if (newPassword === confirmPassword) {
-                matchIndicator.style.display = 'block';
-                matchIndicator.style.color = '#314528';
-                matchIndicator.innerHTML = '<i class="fa-solid fa-check"></i> Passwords match';
-            } else {
-                matchIndicator.style.display = 'block';
-                matchIndicator.style.color = '#ff4d4d';
-                matchIndicator.innerHTML = '<i class="fa-solid fa-times"></i> Passwords do not match';
-            }
-        });
+    //         if (newPassword === confirmPassword) {
+    //             matchIndicator.style.display = 'block';
+    //             matchIndicator.style.color = '#314528';
+    //             matchIndicator.innerHTML = '<i class="fa-solid fa-check"></i> Passwords match';
+    //         } else {
+    //             matchIndicator.style.display = 'block';
+    //             matchIndicator.style.color = '#ff4d4d';
+    //             matchIndicator.innerHTML = '<i class="fa-solid fa-times"></i> Passwords do not match';
+    //         }
+    //     });
 
-        // Form submission
-        // document.getElementById('changePasswordForm').addEventListener('submit', function (e) {
-        //     e.preventDefault();
+    //     // Form submission
+    //     // document.getElementById('changePasswordForm').addEventListener('submit', function (e) {
+    //     //     e.preventDefault();
 
-        //     const currentPassword = document.getElementById('currentPassword').value;
-        //     const newPassword = document.getElementById('newPassword').value;
-        //     const confirmPassword = document.getElementById('confirmPassword').value;
+    //     //     const currentPassword = document.getElementById('currentPassword').value;
+    //     //     const newPassword = document.getElementById('newPassword').value;
+    //     //     const confirmPassword = document.getElementById('confirmPassword').value;
 
-        //     if (newPassword !== confirmPassword) {
-        //         alert('Passwords do not match!');
-        //         return;
-        //     }
+    //     //     if (newPassword !== confirmPassword) {
+    //     //         alert('Passwords do not match!');
+    //     //         return;
+    //     //     }
 
-        //     // Here you would typically make an API call to change the password
-        //     alert('Password changed successfully!');
-        //     this.reset();
-        //     document.querySelector('.password-strength').style.display = 'none';
-        //     document.querySelector('.match-indicator').style.display = 'none';
-        // });
+    //     //     // Here you would typically make an API call to change the password
+    //     //     alert('Password changed successfully!');
+    //     //     this.reset();
+    //     //     document.querySelector('.password-strength').style.display = 'none';
+    //     //     document.querySelector('.match-indicator').style.display = 'none';
+    //     // });
 
-        // Cancel button
-        document.querySelector('.cancel-btn').addEventListener('click', function () {
-            document.getElementById('changePasswordForm').reset();
-            document.querySelector('.password-strength').style.display = 'none';
-            document.querySelector('.match-indicator').style.display = 'none';
-        });</script>
+    //     // Cancel button
+    //     document.querySelector('.cancel-btn').addEventListener('click', function () {
+    //         document.getElementById('changePasswordForm').reset();
+    //         document.querySelector('.password-strength').style.display = 'none';
+    //         document.querySelector('.match-indicator').style.display = 'none';
+    //     });</script>
 </body>
 
 </html>

@@ -25,9 +25,9 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniKey - Portals</title>
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="icon" type="image/png" href="../favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../favicon/favicon.ico" />
     <!-- css -->
     <link rel="stylesheet" href="../css/portals.css">
     <link rel="stylesheet" href="../css/framework.css">
@@ -54,20 +54,7 @@ session_start();
         <!-- Main Content -->
         <div class="content w-full">
             <!-- Header (identical to Lost & Found) -->
-            <div class="head bg-white p-15 between-flex">
-                <div class="user-display p-relative d-flex align-center">
-                    <i class="fa-solid fa-user-circle fa-lg c-main mr-10"></i>
-                    <span class="fs-14 fw-500"><?php echo $name ?></span> <!-- Replace with dynamic username -->
-                </div>
-                <div class="icons d-flex align-center">
-                    <span class="notification p-relative">
-                        <i class="fa-regular fa-bell fa-lg"></i>
-                        <a href="./logout.php" title="Logout" style="color: inherit; margin-left: 15px;">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-</a>
-                    </span>
-                </div>
-            </div>
+              <?php require './navbar.php'?>
 
             <!-- Page Title -->
             <div class="short-header">
@@ -97,7 +84,8 @@ session_start();
                     </div>
                     
                     <div class="portal-box bg-white rad-10 p-20" id="elearningPortal">
-                        <i class="fa-solid fa-laptop-code fa-3x c-olive"></i>
+                        <i class="fa-solid fa-building-columns  fa-3x c-olive"></i>
+                     
                         <h3 class="c-olive">University Portal</h3>
                         <p class="c-gray">Official JU links for website access, complaints, and LinkedIn updates..</p>
                         <div class="extra-links">
@@ -136,7 +124,8 @@ session_start();
                     </div>
                     -->
                     <div class="portal-box bg-white rad-10 p-20" id="financialPortal">
-                        <i class="fa-solid fa-wallet fa-3x c-olive"></i>
+                        <i class="fa-solid fa-user-tie fa-3x c-olive"></i>
+                        
                         <h3 class="c-olive">Deanship of Student Affairs</h3>
                         <p class="c-gray">Manage student services, activities,with the Deanship of Student Affairs.</p>
                         <div class="extra-links">
@@ -149,7 +138,8 @@ session_start();
                     </div>
                     
                     <div class="portal-box bg-white rad-10 p-20" id="internshipPortal">
-                        <i class="fa-solid fa-briefcase fa-3x c-olive"></i>
+                        <i class="fa-solid fa-book-open fa-3x c-olive"></i>
+                      
                         <h3 class="c-olive">Researches</h3>
                         <p class="c-gray">Support and resources for academic research, publications, and research funding opportunities.</p>
                         <div class="extra-links">
@@ -162,6 +152,7 @@ session_start();
                     </div>
                     
                     <div class="portal-box bg-white rad-10 p-20" id="housingPortal">
+                      
                         <i class="fa-solid fa-building fa-3x c-olive"></i>
                         <h3 class="c-olive">Scholarships & Loans</h3>
                         <p class="c-gray">Explore available scholarships and loan programs to support your academic journey.</p>

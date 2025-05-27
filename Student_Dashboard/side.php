@@ -20,12 +20,7 @@
                 <span>Events</span>
             </a>
         </li>
-          <li>
-            <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="chat.html">
-                <i class="fa-regular fa-calendar"></i>
-                <span>Chat</span>
-            </a>
-        </li>
+        
         <li>
             <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="announcement.html">
                 <i class="fa-solid fa-bullhorn"></i>
@@ -48,6 +43,12 @@
             <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="map.html">
                 <i class="fa-solid fa-map"></i>
                 <span>Map</span>
+            </a>
+        </li>
+          <li>
+            <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="chat.html">
+             <i class="fa-solid fa-comments"></i>
+                <span>Chat</span>
             </a>
         </li>
         <li>

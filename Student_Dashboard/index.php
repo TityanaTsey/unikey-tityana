@@ -85,11 +85,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UniKey - Dashboard</title>
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-    <link rel="shortcut icon" href="favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="favicon/site.webmanifest" />
+    <link rel="icon" type="image/png" href="../favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="../favicon/site.webmanifest" />
     <!-- css -->
     <link rel="stylesheet" href="../css/all.min.css" />
     <link rel="stylesheet" href="../css/framework.css" />
@@ -116,20 +116,7 @@
         <!-- Main Content -->
         <div class="content w-full">
             <!-- Header -->
-            <div class="head bg-white p-15 between-flex">
-                <div class="user-display p-relative d-flex align-center">
-                    <i class="fa-solid fa-user-circle fa-lg c-main mr-10"></i>
-                    <span class="fs-14 fw-500"><?php echo $name ?></span> <!-- Replace with dynamic username -->
-                </div>
-                <div class="icons d-flex align-center">
-                    <span class="notification p-relative">
-                        <i class="fa-regular fa-bell fa-lg"></i>
-                         <a href="./logout.php" title="Logout" style="color: inherit; margin-left: 15px;">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        </a>
-                    </span>
-                </div>
-            </div>
+            <?php require './navbar.php'?>
             <!-- User Profile Section -->
             <div class="user-profile-header">
                 <img src="<?php echo $user_image ?>" alt="User Avatar" class="user-avatar">

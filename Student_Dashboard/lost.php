@@ -104,9 +104,9 @@ ORDER BY lf.id DESC;";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniKey - Lost & Found</title>
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="icon" type="image/png" href="../favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../favicon/favicon.ico" />
     <!-- css -->
     <link rel="stylesheet" href="../css/lost_found.css">
     <link rel="stylesheet" href="../css/framework.css">
@@ -136,20 +136,7 @@ ORDER BY lf.id DESC;";
         <!-- Main Content -->
         <div class="content w-full">
             <!-- Header -->
-            <div class="head bg-white p-15 between-flex">
-                <div class="user-display p-relative d-flex align-center">
-                    <i class="fa-solid fa-user-circle fa-lg c-main mr-10"></i>
-                    <span class="fs-14 fw-500"><?php echo $name ?></span> <!-- Replace with dynamic username -->
-                </div>
-                <div class="icons d-flex align-center">
-                    <span class="notification p-relative">
-                        <i class="fa-regular fa-bell fa-lg"></i>
-                         <a href="./logout.php" title="Logout" style="color: inherit; margin-left: 15px;">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        </a>
-                    </span>
-                </div>
-            </div>
+             <?php require './navbar.php'?>
 
             <!-- Main Content -->
             <div class="short-header">
@@ -271,10 +258,10 @@ let categoryId =                 <?php echo json_encode($filter ?? null); ?>;
                     <div class="card                                                                                                                                                                                                                                                                                                                                     <?php echo $status == 2 ? 'expired' : '' ?>" data-type="<?php echo $type; ?>" data-location="<?php echo $last_seen_in ?>">
                         <img src="<?php echo $item_image; ?>" alt="<?php echo $type; ?>">
                         <div class="info">
-                           <h5><i class="fa-solid fa-shirt"></i> <?php echo $item_name ?> </h5>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <?php echo $type ?></h5>
+                           <h5><i class="fa-solid fa-magnifying-glass"></i> <?php echo $item_name ?> </h5>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <?php echo $type ?></h5>
                             <!--<p><#?php echo $item_name ?></p>-->
                             <div class="info">
-                            <h5><i class="fa-solid fa-location-dot"></i> Description</h5>
+                            <h5><i class="fa-solid fa-check"></i> Description</h5>
                             <p><?php echo $item_Description; ?></p>
                         </div>
                         </div>
