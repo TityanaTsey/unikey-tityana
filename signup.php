@@ -64,15 +64,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniKey - Sign Up</title>
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-    <link rel="shortcut icon" href="favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="favicon/site.webmanifest" />
+    <link rel="icon" type="image/png" href="../favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="../favicon/site.webmanifest" />
     <!-- css -->
-    <link rel="stylesheet" href="css/login_signup.css">
-    <link rel="stylesheet" href="css/framework.css">
-    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="../css/login_signup.css">
+    <link rel="stylesheet" href="../css/framework.css">
+    <link rel="stylesheet" href="../css/all.min.css">
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -130,19 +130,35 @@
                 <div class="form-group">
                     <label for="pass">Password</label>
                     <div class="input-wrapper">
-                    <input type="password" id="pass" placeholder="Create a password" name="pass" required>
+                        <input type="password" id="pass" placeholder="Create a password" name="pass" required>
                         <i class="fa-solid fa-lock input-icon"></i>
                         <i class="fa-solid fa-eye password-toggle" id="togglePassword1"></i>
                     </div>
+                    <div id="password-strength-meter" class="strength-meter">
+                        <div class="strength-meter-fill" data-strength="0"></div>
+                    </div>
+                    <div id="password-rules" class="password-rules">
+                        <p class="rules-title">Password must contain:</p>
+                        <ul class="rules-list">
+                            <li id="req-length" class="invalid">At least 8 characters</li>
+                            <li id="req-uppercase" class="invalid">At least 1 uppercase letter</li>
+                            <li id="req-lowercase" class="invalid">At least 1 lowercase letter</li>
+                            <li id="req-number" class="invalid">At least 1 number</li>
+                            <li id="req-special" class="invalid">At least 1 special character</li>
+                        </ul>
+                    </div>          
                 </div>
                 <div class="form-group">
                     <label for="confirm-pass">Confirm Password</label>
                     <div class="input-wrapper">
-                    <input type="password" id="confirm-pass" placeholder="Confirm your password" name="confirm_pass"
-                    required>
+                        <input type="password" id="confirm-pass" placeholder="Confirm your password" name="confirm-pass" required>
                         <i class="fa-solid fa-lock input-icon"></i>
                         <i class="fa-solid fa-eye password-toggle" id="togglePassword2"></i>
                     </div>
+                    <div id="password-match" class="password-match">
+                        <span id="match-icon" class="fas"></span>
+                        <span id="match-text"></span>
+                    </div>          
                 </div>
                  <!-- <div class="form-group">
                     <label for="confirm-pass">Confirm Password</label>
@@ -235,42 +251,8 @@
         <p>&copy; 2025 UniKey. All rights reserved.</p>
     </footer>
 
-    <script>
-       // WARNING
-        // const form = document.querySelector('form');
-        // form.addEventListener('submit', goToPage);
+   <script src="../js/signup.js">
 
-        // function goToPage(event) {
-        //     event.preventDefault(); // stop form from submitting
-        // window.location.href = "Student_Dashboard";
-        // }
-        const togglePassword1 = document.querySelector('#togglePassword1');
-        const password1 = document.querySelector('#pass');
-        const togglePassword2 = document.querySelector('#togglePassword2');
-        const password2 = document.querySelector('#confirm-pass');
-
-        togglePassword1.addEventListener('click', function () {
-        const type = password1.getAttribute('type') === 'password' ? 'text' : 'password';
-        password1.setAttribute('type', type);
-        this.classList.toggle('fa-eye-slash');
-        });
-
-        togglePassword2.addEventListener('click', function () {
-        const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
-        password2.setAttribute('type', type);
-        this.classList.toggle('fa-eye-slash');
-        });
-        function updateEmail() {
-                const usernameInput = document.getElementById('username');
-                const emailInput = document.getElementById('email');
-
-                // Remove any @ or spaces from the username
-                const cleanUsername = usernameInput.value.replace(/[@\s]/g, '').toLowerCase();
-                usernameInput.value = cleanUsername;
-
-                // Combine with fixed domain
-                emailInput.value = cleanUsername + '@ju.edu.jo';
-               }
     </script>
 
 

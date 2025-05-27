@@ -1,43 +1,47 @@
 <?php
-    session_start();
+session_start();
 
-    include "./Connect.php";
+include "./Connect.php";
 
-    if (isset($_POST['Submit'])) {
+if (isset($_POST['Submit'])) {
 
-        $email    = $_POST['email'];
-       # $password = $_POST['password'];
-        $password = md5($_POST['password']);
+    $email    = $_POST['email'];
+    $password = md5($_POST['password']);
 
-        $query = mysqli_query($con, "SELECT * FROM students WHERE email ='$email' AND password = '$password'");
+    $query = mysqli_query(
+        $con,
+        "SELECT * FROM students WHERE email ='$email' AND password = '$password'"
+    );
 
-        if (mysqli_num_rows($query) > 0) {
+    if (mysqli_num_rows($query) > 0) {
 
-            $row = mysqli_fetch_array($query);
+        $row = mysqli_fetch_array($query);
 
-            $id                = $row['id'];
-            $active            = $row['active'];
-            $_SESSION['S_Log'] = $id;
+        $id     = $row['id'];
+        $active = $row['active'];
 
-            if ($active == 1) {
+        // 1) Log the user in
+        $_SESSION['S_Log'] = $id;
 
-                echo '<script language="JavaScript">
-                document.location="./Student_Dashboard/";
-                </script>';
-            } else {
+        // 2) Update last_login_time for this student
+        // mysqli_query(
+        //     $con,
+        //     "UPDATE students
+        //         SET last_login_time = NOW()
+        //       WHERE id = {$id}"
+        // ) or die(mysqli_error($con));
 
-                echo '<script language="JavaScript">
-                alert ("Acount Is Deativated !")
-                </script>';
-            }
-
+        // 3) Redirect or show deactivated message
+        if ($active == 1) {
+            echo '<script>location.href="./Student_Dashboard/";</script>';
         } else {
-
-            echo '<script language="JavaScript">
-      alert ("Error ... Please Check Email Or Password !")
-      </script>';
+            echo '<script>alert("Account is deactivated!");</script>';
         }
+
+    } else {
+        echo '<script>alert("Error ... Please Check Email Or Password !");</script>';
     }
+}
 ?>
 
 <!DOCTYPE html>
@@ -48,11 +52,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniKey - Login</title>
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-    <link rel="shortcut icon" href="favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="favicon/site.webmanifest" />
+    <link rel="icon" type="image/png" href="../favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="../favicon/site.webmanifest" />
     <!-- css -->
     <link rel="stylesheet" href="css/login_signup.css">
     <link rel="stylesheet" href="css/framework.css">
