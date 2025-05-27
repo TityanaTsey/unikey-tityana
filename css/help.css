@@ -1,7 +1,6 @@
-
 /* End Content */
 /* start welcome */
-body {
+body { color:red;
     font-family: 'Poppins', sans-serif;
 }
 .welcome-section {

@@ -119,7 +119,7 @@
 }?>
                         </select>
                         <div class="important-checkbox">
-                            <input type="checkbox" id="important-announcement" name="important">
+                            <input type="checkbox" id="important-announcement" name="is_important">
                             <label for="important-announcement">
                                 Mark as Important Announcement
                             </label>

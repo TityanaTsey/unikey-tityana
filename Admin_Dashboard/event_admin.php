@@ -6,13 +6,10 @@
     $A_ID = $_SESSION['A_Log'];
 
     if (! $A_ID) {
-
         echo '<script language="JavaScript">
-     document.location="../Admin-Login.php";
-    </script>';
-
+        document.location="../Admin-Login.php";
+        </script>';
     } else {
-
         $sql1 = mysqli_query($con, "select * from administrator where id='$A_ID'");
         $row1 = mysqli_fetch_array($sql1);
 
@@ -20,8 +17,6 @@
         $email = $row1['email'];
     }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +35,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -58,14 +52,14 @@
                 <!-- Left side - User Name -->
                 <div class="user-display p-relative d-flex align-center">
                     <i class="fa-solid fa-user-circle fa-lg c-main mr-10"></i>
-                    <span class="fs-14 fw-500"><?php echo $name ?></span> <!-- Replace with dynamic username -->
+                    <span class="fs-14 fw-500"><?php echo $name ?></span>
                 </div>
 
                 <!-- Right side - Action Buttons -->
                 <div class="header-actions d-flex align-center gap-10">
                     <!-- Dark/Light Mode Toggle -->
                     <button id="themeToggle" class="mode-toggle btn-shape bg-transparent c-gray hover-c-main p-10">
-                        <i class="fa-solid fa-moon"></i> <!-- Default dark icon -->
+                        <i class="fa-solid fa-moon"></i>
                         <span class="fs-14 ml-5">Dark</span>
                     </button>
 
@@ -108,16 +102,12 @@
                             <option value="" disabled selected>Select Category</option>
                             <?php
                                 $sql1 = mysqli_query($con, "SELECT * from categories WHERE type = 'events'");
-
                                 while ($row1 = mysqli_fetch_array($sql1)) {
-
                                     $category_id   = $row1['id'];
                                     $category_name = $row1['name'];
-
-                                ?>
-<option value="<?php echo $category_id ?>"><?php echo $category_name ?></option>
-<?php
-}?>
+                            ?>
+                            <option value="<?php echo $category_id ?>"><?php echo $category_name ?></option>
+                            <?php } ?>
                         </select>
                         <div class="attach">
                             <i class="fa-solid fa-paperclip attach-pin"></i>
@@ -129,14 +119,22 @@
 
                 <!-- List of Announcements -->
                 <div class="announcement-list" id="announcement-list">
-                    <h2 class="mt-0 mb-20">Existing Events</h2>
+                    <div class="between-flex">
+                        <h2 class="mt-0 mb-20">Existing Events</h2>
+                        <button onclick="exportToExcel()" class="btn-shape bg-green c-white hover-opacity p-10">
+                            <i class="fa-solid fa-file-excel"></i>
+                            <span class="fs-14 ml-5">Export Names to Excel</span>
+                        </button>
+                    </div>
                     <!-- Announcements will be dynamically added here -->
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="../js/event_admin.js"> </script>
+    <script src="../js/event_admin.js"></script>
+    <script>
+       
+    </script>
 </body>
-
 </html>
