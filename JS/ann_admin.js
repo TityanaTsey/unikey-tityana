@@ -9,9 +9,9 @@ function addAnnouncement() {
   const content = document.getElementById("announcement-content").value;
   const date = document.getElementById("announcement-date").value;
   const category = document.getElementById("announcement-category").value;
-  const isImportant = document.getElementById("important-announcement").checked;
+  const isImportant = document.getElementById("important-announcement").checked ? 1:0;
   const imageFile = document.getElementById("announcement-image").files[0];
-
+console.log(isImportant)
   if (title && content && date && category) {
     // const newAnnouncement = {
     //     id: Date.now(), // Unique ID for each announcement

@@ -124,6 +124,9 @@ function renderAnnouncements() {
                 <button class="delete-btn" onclick="deleteAnnouncement(${
                   announcement.id
                 })">Delete</button>
+                <button class="delete-btn" onclick="downloadEventRegistrations(${
+                  announcement.id
+                })">Download Excel</button>
             </div>
         `;
         announcementList.appendChild(announcementItem);
@@ -156,7 +159,43 @@ function editAnnouncement(id) {
     document.getElementById('eventID').value = announcement.id;
   }
 }
+async function downloadEventRegistrations(eventId) {
+  // Compose the export URL
+  const url = `event_export_api.php?event_id=${encodeURIComponent(eventId)}`;
 
+  try {
+    // 1. Fetch the file as a binary blob
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'same-origin'   // include session cookies if needed
+    });
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
+
+    // 2. Convert response into a Blob
+    const blob = await response.blob();
+
+    // 3. Create a temporary anchor element
+    const downloadLink = document.createElement('a');
+    const filename = `event_${eventId}_students.xls`;
+
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = filename;
+
+    // 4. Append it, click it, then clean up
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+
+    // 5. Revoke the Blob URL to free memory
+    URL.revokeObjectURL(downloadLink.href);
+
+  } catch (err) {
+    console.error('Download failed:', err);
+    alert('Unable to download registrations. Please try again later.');
+  }
+}
 // Initial render of announcements
 renderAnnouncements();
 document.addEventListener("DOMContentLoaded", function () {
